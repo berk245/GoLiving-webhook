@@ -13,15 +13,23 @@ mongoose.connect(
 
 app.use(bodyParser.json());
 
+const applicationSchema = new mongoose.Schema({
+  name: String,
+  date: String,
+  room: String
+});
+
+const newApplication = mongoose.model("newApplication", applicationSchema);
+
 app.post("/webhook", async (req, res) => {
   const relevantData = req.body.form_response.answers;
-  const newMember = {
+  const newMember = new newApplication({
     name: relevantData[0].text,
     date: relevantData[1].date,
     room: relevantData[2].choice.label
-  };
+  });
   await newMember.save();
-  res.status(200).send(newCustomer);
+  res.status(200).send(newMember);
 });
 
 const port = process.env.PORT || 5000;
