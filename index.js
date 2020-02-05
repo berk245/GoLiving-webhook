@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const router = express.Router();
 
 const app = express();
 
@@ -13,6 +12,17 @@ mongoose.connect(
 );
 
 app.use(bodyParser.json());
+
+app.post("/webhook", async (req, res) => {
+  const relevantData = req.body.form_response.answers;
+  const newMember = {
+    name: relevantData[0].text,
+    date: relevantData[1].date,
+    room: relevantData[2].choice.label
+  };
+  await newMember.save();
+  res.status(200).send(newCustomer);
+});
 
 const port = process.env.PORT || 5000;
 //start the listening
