@@ -12,7 +12,10 @@ mongoose.connect(
 );
 
 app.get("/", function(req, res) {
-  res.send("hello world");
+  res.send(
+    "Welcome to the GoLiving Webhook! There is nothing to see here. You can apply for a room by filling in this form:" +
+      "https://berkozzambak.typeform.com/to/pTfYSQ"
+  );
 });
 
 app.use(bodyParser.json());
