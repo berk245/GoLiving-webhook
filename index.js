@@ -11,6 +11,10 @@ mongoose.connect(
   () => console.log("connected to DB")
 );
 
+app.get("/", function(req, res) {
+  res.send("hello world");
+});
+
 app.use(bodyParser.json());
 
 const applicationSchema = new mongoose.Schema({
