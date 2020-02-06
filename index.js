@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 const applicationSchema = new mongoose.Schema({
   name: String,
   date: String,
-  room: String
+  room: String,
+  image: String
 });
 
 const newApplication = mongoose.model("newApplication", applicationSchema);
@@ -33,7 +34,8 @@ app.post("/webhook", async (req, res) => {
   const newMember = new newApplication({
     name: relevantData[0].text,
     date: relevantData[1].date,
-    room: relevantData[2].choice.label
+    room: relevantData[2].choice.label,
+    image: "https://evisatraveller.mfa.ir/static/images/help/no-scan.jpg"
   });
   await newMember.save();
   res.status(200).send(newMember);
